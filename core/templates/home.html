@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Maps Test</title>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  
+  <style type="text/css">
+    html { height: 100% }
+    body { height: 100%; margin: 0; padding: 0 }
+    #map-canvas { height: 90% }
+  </style>
+  
+  <script type="text/javascript"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClqmnPFZDxh_XIktPvuNQuo8F7mQ86ORc&sensor=FALSE">
+  </script>
+  
+  <script type="text/javascript">
+    var maps_list = [];
+    var drawing = false;
+    var polygon = null;
+    var map = null;
+    var info_window = null;
+
+    function new_polygon(map, path, border_color, background_color, editable, draggable){
+      var polygonOptions = {
+        path: path, 
+        strokeColor: border_color,
+        strokeWeight: 2,
+        fillColor: background_color, 
+        fillOpacity: 0.1,
+        editable: editable, 
+        draggable: draggable
+      };
+      var polygon = new google.maps.Polygon( polygonOptions );
+      polygon.setMap(map);
+      var info_text = "test";
+      google.maps.event.addListener(polygon, 'click', function(e){
+        if (info_window){
+          info_window.setMap(null);
+        }
+        info_window = new google.maps.InfoWindow();
+        info_window.setContent(info_text);
+        info_window.setPosition(e.latLng);
+        info_window.open(map);
+      });
+      return polygon;
+    }
+
+    function start_drawing(){
+      polygon = new_polygon(map, new google.maps.MVCArray(), document.getElementById("border_color").value, document.getElementById("background_color").value, true, true);
+      drawing = true;
+      document.getElementById("border_color").disabled = true;
+      document.getElementById("background_color").disabled = true;
+      document.getElementById("start_drawing").disabled = true;
+      document.getElementById("end_drawing").disabled = false;
+    }
+
+    function end_drawing(){
+      maps_list.push(polygon.getPath());
+      polygon.setDraggable(false);
+      polygon.setEditable(false);
+      drawing = false;
+      document.getElementById("border_color").disabled = false;
+      document.getElementById("background_color").disabled = false;
+      document.getElementById("start_drawing").disabled = false;
+      document.getElementById("end_drawing").disabled = true;
+      
+    }
+
+    function initialize() {
+      document.getElementById("end_drawing").disabled = true;
+      
+      var mapOptions = {
+        center: new google.maps.LatLng(43.64719534917825, -79.39072608947754),
+        zoom: 15
+      };
+      map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+ 
+      google.maps.event.addListener(map, 'click', function (e) {
+        if (drawing==true){
+          var currentPath = polygon.getPath();
+          currentPath.push(e.latLng);
+        }
+      });
+
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+  </script>
+</head>
+
+<body>
+  <h3>Drawing Maps</h3>
+  Border Color:
+  <input type="color" id="border_color">
+  Background Color:
+  <input type="color" id="background_color">
+  <button onclick="start_drawing()" id="start_drawing">Start Drawing</button>
+  <button onclick="end_drawing()" id="end_drawing">End Drawing</button>
+  <div id="map-canvas"/>
+</body>
+</html>
