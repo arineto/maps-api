@@ -122,7 +122,10 @@
   </div>
 
   <div id="filters_box">
-    <p>teste</p>
+    {% for color, value in colors %}
+      <a href="/filter/{{ value }}/"><div style="background-color: {{ color }};" class="filter_color_box"></div></a>
+    {% endfor %}
+    <a href=/><div class="filter_color_box">All</div></a>
   </div>
 
   <div id="map-canvas"/>  

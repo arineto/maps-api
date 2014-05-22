@@ -63,3 +63,11 @@ body {
 	padding-left: 14px;  /* Regular padding-left + 1. */
 	width: 401px;
 }
+
+.filter_color_box{
+	width: 20px;
+	height: 20px;
+	margin: 10px auto;
+	opacity:0.7;
+	color:black;
+}
