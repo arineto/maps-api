@@ -21,6 +21,7 @@
     var map = null;
     var info_window = null;
     var geocoder;
+    var marker;
 
     function new_polygon(map, path, border_color, background_color, info_text, editable, draggable){
       var polygonOptions = {
@@ -96,7 +97,7 @@
       
       var mapOptions = {
         center: new google.maps.LatLng(43.64719534917825, -79.39072608947754),
-        zoom: 15
+        zoom: 14
       };
       map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
  
@@ -128,11 +129,14 @@
     }
 
     function codeAddress() {
+      if(marker){
+        marker.setMap(null);
+      }
       var address = document.getElementById('searchTextField').value;
       geocoder.geocode( { 'address': address}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
           map.setCenter(results[0].geometry.location);
-          var marker = new google.maps.Marker({
+          marker = new google.maps.Marker({
               map: map,
               position: results[0].geometry.location
           });
