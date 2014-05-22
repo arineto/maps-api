@@ -75,3 +75,53 @@ body {
 #color{
 	padding:1px;
 }
+
+.card_content{
+	width: 1100px;
+	height: 500px;
+	margin: 200px auto;
+}
+
+.card_content>div{
+	border: 3px solid black;
+	width: 515px;
+	height: 240px;
+}
+
+.card{
+	float:left;
+}
+
+.form{
+	float:right;
+}
+
+.card_img{
+	width:225px;
+	float:left;
+	margin-top: 55px;
+}
+
+.card_img>img{
+	width: 100%;
+}
+
+.card_info{
+	width:280px;
+	float:right;
+	text-align: left;
+}
+
+#full_name{
+	color: blue;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+#url{
+	color: blue;
+}
+
+#url label{
+	color:black;
+}
