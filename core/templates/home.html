@@ -28,9 +28,12 @@
 
   <script type="text/javascript">
     var map;
+    var polygon = null;
 
     function initialize() {
-      document.getElementById("end_drawing").disabled = true;
+      {% if not edit %}
+        document.getElementById("end_drawing").disabled = true;
+      {% endif %}
 
       geocoder = new google.maps.Geocoder();
       var input = document.getElementById('searchTextField');
@@ -51,9 +54,10 @@
 
       // GENERATING THE STORED POLYGONS
       {% for polygon in polygons %}
+        var polygon_id = "{{ polygon.id }}";
         var polygon_points = "{{ polygon.points }}".split(", ");
         var polygon_color = "{{ polygon.color }}";
-        var polygon_info_text = "{{ polygon.info_text }}</br><a href='/delete_map/{{ polygon.id }}'>Delete</a>";
+        var polygon_info_text = "{{ polygon.info_text }}</br><a href='/edit_map/{{ polygon.id }}'>Edit</a></br><a href='/delete_map/{{ polygon.id }}'>Delete</a>";
         var polygon_path = [];
 
         for(i=0; i<polygon_points.length-1; i=i+2){
@@ -63,7 +67,16 @@
           polygon_path.push(latlng);
         }
 
-        polygon = new_polygon(map, polygon_path, polygon_color, polygon_info_text, false, false);
+        // EDITING MAPS
+        {% if edit %}
+          if("{{ edit }}" == polygon_id){
+            polygon = new_polygon(map, polygon_path, polygon_color, polygon_info_text, true, true);
+          }else{
+            polygon = new_polygon(map, polygon_path, polygon_color, polygon_info_text, false, false);
+          }
+        {% else %}
+          polygon = new_polygon(map, polygon_path, polygon_color, polygon_info_text, false, false);
+        {% endif %}
       {% endfor %}
 
     }
@@ -72,7 +85,7 @@
 </head>
 
 <body>
-  <form method="POST", action="/new_map/" name="new_map_form">
+  <form method="POST", action="/save_map/{% if edit %}{{ edit }}/{% endif %}" name="new_map_form">
     {% csrf_token %}
     <input type="hidden" name="points">
     <input type="hidden" name="color" id="id_color">
@@ -99,28 +112,31 @@
   
   <div id="draw_maps_box" class="form-horizontal">
     <h3>Drawing Maps</h3>
-    <div class="form-group">
-      <label class="col-sm-6 control-label">Color</label>
-      <div class="col-sm-4">
-        <input type="color" class="form-control" id="color">
+    {% if edit %}
+      <button class="btn btn-default" onclick="end_drawing('true')">Save</button>
+    {% else %}
+      <div class="form-group">
+        <label class="col-sm-6 control-label">Color</label>
+        <div class="col-sm-4">
+          <input type="color" class="form-control" id="color">
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <div class="col-sm-12">
-        <textarea class="form-control" rows="6" id="info_text"></textarea><br>
+      <div class="form-group">
+        <div class="col-sm-12">
+          <textarea class="form-control" rows="6" id="info_text"></textarea><br>
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <div class="col-sm-6">
-        <button class="btn btn-default" onclick="start_drawing()" id="start_drawing">Start Drawing</button>
+      <div class="form-group">
+        <div class="col-sm-6">
+          <button class="btn btn-default" onclick="start_drawing()" id="start_drawing">Start Drawing</button>
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <div class="col-sm-6">
-        <button class="btn btn-default" onclick="end_drawing()" id="end_drawing">End Drawing</button>
+      <div class="form-group">
+        <div class="col-sm-6">
+          <button class="btn btn-default" onclick="end_drawing('false')" id="end_drawing">End Drawing</button>
+        </div>
       </div>
-    </div>
-
+    {% endif %}
   </div>
 
   <div id="filters_box">

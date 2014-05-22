@@ -1,5 +1,4 @@
 var drawing = false;
-var polygon = null;
 
 function start_drawing(){
   polygon = new_polygon(map, new google.maps.MVCArray(), document.getElementById("color").value, document.getElementById("info_text").value, true, true);
@@ -10,15 +9,15 @@ function start_drawing(){
   document.getElementById("end_drawing").disabled = false;
 }
 
-function end_drawing(){
-  polygon.setDraggable(false);
-  polygon.setEditable(false);
-  drawing = false;
-  document.getElementById("color").disabled = false;
-  document.getElementById("start_drawing").disabled = false;
-  document.getElementById("info_text").disabled = false;
-  document.getElementById("end_drawing").disabled = true;
-  save_map();
+function end_drawing(edit){
+  // polygon.setDraggable(false);
+  // polygon.setEditable(false);
+  // drawing = false;
+  // document.getElementById("color").disabled = false;
+  // document.getElementById("start_drawing").disabled = false;
+  // document.getElementById("info_text").disabled = false;
+  // document.getElementById("end_drawing").disabled = true;
+  save_map(edit);
 }
 
 function get_path_points(array){
@@ -29,10 +28,12 @@ function get_path_points(array){
   return path_points;
 }
 
-function save_map(){
+function save_map(edit){
   document.new_map_form.points.value = get_path_points(polygon.getPath().getArray());
-  document.getElementById("id_color").value = document.getElementById("color").value;
-  document.new_map_form.info_text.value = document.getElementById("info_text").value;
-  document.getElementById("info_text").value="";
+  if (edit=='false'){
+    document.getElementById("id_color").value = document.getElementById("color").value;
+    document.new_map_form.info_text.value = document.getElementById("info_text").value;
+    document.getElementById("info_text").value="";
+  }
   document.new_map_form.submit();
 }
