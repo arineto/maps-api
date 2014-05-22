@@ -1,12 +1,12 @@
 var info_window = null;
 var last_polygon = null;
 
-function new_polygon(map, path, border_color, background_color, info_text, editable, draggable){
+function new_polygon(map, path, color, info_text, editable, draggable){
   var polygonOptions = {
     path: path, 
-    strokeColor: border_color,
+    strokeColor: color,
     strokeWeight: 2,
-    fillColor: background_color, 
+    fillColor: color, 
     fillOpacity: 0.1,
     editable: editable, 
     draggable: draggable
@@ -26,14 +26,6 @@ function new_polygon(map, path, border_color, background_color, info_text, edita
     mark_polygon(polygon);
   });
   return polygon;
-}
-
-function get_path_points(array){
-  var path_points = "";
-  for (i=0; i<array.length; i++){
-    path_points+=array[i].toString()+", ";
-  }
-  return path_points;
 }
 
 function mark_polygon(polygon){

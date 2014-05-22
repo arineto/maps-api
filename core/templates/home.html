@@ -38,7 +38,7 @@
       
       var mapOptions = {
         center: new google.maps.LatLng(43.64719534917825, -79.39072608947754),
-        zoom: 14
+        zoom: 13
       };
       map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
@@ -52,8 +52,7 @@
       // GENERATING THE STORED POLYGONS
       {% for polygon in polygons %}
         var polygon_points = "{{ polygon.points }}".split(", ");
-        var polygon_border_color = "{{ polygon.border_color }}";
-        var polygon_background_color = "{{ polygon.background_color }}";
+        var polygon_color = "{{ polygon.color }}";
         var polygon_info_text = "{{ polygon.info_text }}";
         var polygon_path = [];
 
@@ -64,7 +63,7 @@
           polygon_path.push(latlng);
         }
 
-        polygon = new_polygon(map, polygon_path, polygon_border_color, polygon_background_color, polygon_info_text, false, false);
+        polygon = new_polygon(map, polygon_path, polygon_color, polygon_info_text, false, false);
       {% endfor %}
 
     }
@@ -76,8 +75,7 @@
   <form method="POST", action="/new_map/" name="new_map_form">
     {% csrf_token %}
     <input type="hidden" name="points">
-    <input type="hidden" name="border_color">
-    <input type="hidden" name="background_color">
+    <input type="hidden" name="color" id="id_color">
     <input type="hidden" name="info_text">
   </form>
 
@@ -102,15 +100,9 @@
   <div id="draw_maps_box" class="form-horizontal">
     <h3>Drawing Maps</h3>
     <div class="form-group">
-      <label class="col-sm-8 control-label">Border Color</label>
+      <label class="col-sm-6 control-label">Color</label>
       <div class="col-sm-3">
-        <input type="color" class="form-control" id="border_color">
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="col-sm-8 control-label">Background Color:</label>
-      <div class="col-sm-3">
-        <input type="color" class="form-control" id="background_color">
+        <input type="color" class="form-control" id="color">
       </div>
     </div>
     <div class="form-group">
