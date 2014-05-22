@@ -72,7 +72,7 @@
           if("{{ edit }}" == polygon_id){
             polygon = new_polygon(map, polygon_path, polygon_color, polygon_info_text, true, true);
           }else{
-            polygon = new_polygon(map, polygon_path, polygon_color, polygon_info_text, false, false);
+            var not_edit_polygon = new_polygon(map, polygon_path, polygon_color, polygon_info_text, false, false);
           }
         {% else %}
           polygon = new_polygon(map, polygon_path, polygon_color, polygon_info_text, false, false);
@@ -114,6 +114,7 @@
     <h3>Drawing Maps</h3>
     {% if edit %}
       <button class="btn btn-default" onclick="end_drawing('true')">Save</button>
+      <a class="btn btn-default" href="/">Discard</a>
     {% else %}
       <div class="form-group">
         <label class="col-sm-6 control-label">Color</label>
