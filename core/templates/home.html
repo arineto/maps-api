@@ -53,7 +53,7 @@
       {% for polygon in polygons %}
         var polygon_points = "{{ polygon.points }}".split(", ");
         var polygon_color = "{{ polygon.color }}";
-        var polygon_info_text = "{{ polygon.info_text }}";
+        var polygon_info_text = "{{ polygon.info_text }}</br><a href='/delete_map/{{ polygon.id }}'>Delete</a>";
         var polygon_path = [];
 
         for(i=0; i<polygon_points.length-1; i=i+2){
@@ -101,7 +101,7 @@
     <h3>Drawing Maps</h3>
     <div class="form-group">
       <label class="col-sm-6 control-label">Color</label>
-      <div class="col-sm-3">
+      <div class="col-sm-4">
         <input type="color" class="form-control" id="color">
       </div>
     </div>
@@ -122,6 +122,7 @@
   </div>
 
   <div id="filters_box">
+    <h3>Filters</h3>
     {% for color, value in colors %}
       <a href="/filter/{{ value }}/"><div style="background-color: {{ color }};" class="filter_color_box"></div></a>
     {% endfor %}

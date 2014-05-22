@@ -22,3 +22,9 @@ def new_map(request):
 		if form.is_valid():
 			form.save()
 	return redirect('/')
+
+
+def delete_map(request, map_id):
+	Polygon.objects.get(id=map_id).delete()
+	return redirect('/')
+
