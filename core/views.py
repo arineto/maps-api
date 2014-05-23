@@ -22,15 +22,16 @@ def home(request, color=None):
 @login_required
 def save_map(request, map_id=None):
 	if request.method == 'POST':
-		if map_id is not None:
-			new_points = request.POST.get('points')
-			polygon = Polygon.objects.get(id=map_id)
-			polygon.points = new_points
-			polygon.save()
+		if map_id:
+			print "edit"
+			instance = Polygon.objects.get(id=map_id)
 		else:
-			form = PolygonForm(request.POST)
-			if form.is_valid():
-				form.save()
+			instance = None
+		
+		form = PolygonForm(request.POST, instance=instance)
+		if form.is_valid():
+			form.save()
+
 	return redirect('/')
 
 
@@ -48,7 +49,9 @@ def edit_map(request, map_id):
 		if not (polygon.color,polygon.color[1:]) in colors:
 			colors+=[(polygon.color,polygon.color[1:])]
 
-	return render(request, 'home.html', {'polygons':polygons, 'colors':colors, 'edit':map_id})
+	polygon = Polygon.objects.get(id=map_id)
+
+	return render(request, 'home.html', {'polygons':polygons, 'colors':colors, 'edit':map_id, 'polygon':polygon})
 
 
 def login_aux(request):

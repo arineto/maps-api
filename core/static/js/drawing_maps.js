@@ -9,7 +9,7 @@ function start_drawing(){
   document.getElementById("end_drawing").disabled = false;
 }
 
-function end_drawing(edit){
+function end_drawing(){
   // polygon.setDraggable(false);
   // polygon.setEditable(false);
   // drawing = false;
@@ -17,7 +17,7 @@ function end_drawing(edit){
   // document.getElementById("start_drawing").disabled = false;
   // document.getElementById("info_text").disabled = false;
   // document.getElementById("end_drawing").disabled = true;
-  save_map(edit);
+  save_map();
 }
 
 function get_path_points(array){
@@ -28,12 +28,10 @@ function get_path_points(array){
   return path_points;
 }
 
-function save_map(edit){
+function save_map(){
   document.new_map_form.points.value = get_path_points(polygon.getPath().getArray());
-  if (edit=='false'){
-    document.getElementById("id_color").value = document.getElementById("color").value;
-    document.new_map_form.info_text.value = document.getElementById("info_text").value;
-    document.getElementById("info_text").value="";
-  }
+  document.getElementById("id_color").value = document.getElementById("color").value;
+  document.new_map_form.info_text.value = document.getElementById("info_text").value;
+  document.getElementById("info_text").value="";
   document.new_map_form.submit();
 }
