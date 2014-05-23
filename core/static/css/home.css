@@ -13,6 +13,15 @@ body {
 	height:50px;
 }
 
+.my_search{
+	width:500px;
+	position: absolute;
+	z-index: 100;
+	left:50%;
+	margin-left: -250px;
+	top:70px;
+}
+
 #map-canvas { 
 	display: block;
 	float:left;
@@ -36,32 +45,6 @@ body {
 	width: 15%;
 	height: 95%;
 	padding: 0 10px;
-}
-
-.controls {
-	border: 1px solid transparent;
-	border-radius: 2px 0 0 2px;
-	box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	height: 32px;
-	outline: none;
-	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-}
-
-#searchTextField {
-	background-color: #fff;
-	padding: 0 11px 0 13px;
-	width: 400px;
-	font-size: 15px;
-	font-weight: 300;
-	text-overflow: ellipsis;
-}
-
-#searchTextField:focus {
-	border-color: #4d90fe;
-	margin-left: -1px;
-	padding-left: 14px;  /* Regular padding-left + 1. */
-	width: 401px;
 }
 
 .filter_color_box{
