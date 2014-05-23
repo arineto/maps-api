@@ -22,6 +22,12 @@ body {
 	top:70px;
 }
 
+#clearSearch{
+	position: absolute;
+	top:10px;
+	left:380px;
+}
+
 #map-canvas { 
 	display: block;
 	float:left;

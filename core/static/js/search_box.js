@@ -25,4 +25,8 @@ $( document ).ready(function() {
       codeAddress();
     }
   });
+
+  $( "#clearSearch" ).click(function(event) {
+    $( "#searchTextField" ).val("");
+  });
 });
