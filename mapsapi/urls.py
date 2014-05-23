@@ -10,5 +10,7 @@ urlpatterns = patterns('',
     url(r'^save_map/(?P<map_id>\d+)/$', 'core.views.save_map', name='save_map'),
     url(r'^delete_map/(?P<map_id>\d+)/$', 'core.views.delete_map', name='delete_map'),
     url(r'^edit_map/(?P<map_id>\d+)/$', 'core.views.edit_map', name='edit_map'),
+    url(r'^logout/$', 'core.views.logout_aux', name='logout_aux'),
+    url(r'^login/$', 'core.views.login_aux', name='login_aux'),
     url(r'^admin/', include(admin.site.urls)),
 )

@@ -25,8 +25,12 @@ body {
 #map-canvas { 
 	display: block;
 	float:left;
-	width: 70%;
+	width: 85%;
 	height: 95% 
+}
+
+.authenticated{
+	width:70% !important;
 }
 
 #draw_maps_box{

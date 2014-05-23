@@ -1,4 +1,6 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+from django.contrib.auth import logout, login, authenticate
 from core.forms import *
 from core.models import *
 
@@ -16,6 +18,8 @@ def home(request, color=None):
 
 	return render(request, 'home.html', {'polygons':polygons, 'colors':colors})
 
+
+@login_required
 def save_map(request, map_id=None):
 	if request.method == 'POST':
 		if map_id is not None:
@@ -30,11 +34,13 @@ def save_map(request, map_id=None):
 	return redirect('/')
 
 
+@login_required
 def delete_map(request, map_id):
 	Polygon.objects.get(id=map_id).delete()
 	return redirect('/')
 
 
+@login_required
 def edit_map(request, map_id):
 	polygons = Polygon.objects.all()
 	colors = []
@@ -43,5 +49,21 @@ def edit_map(request, map_id):
 			colors+=[(polygon.color,polygon.color[1:])]
 
 	return render(request, 'home.html', {'polygons':polygons, 'colors':colors, 'edit':map_id})
+
+
+def login_aux(request):
+	if request.method == "POST":
+	    username = request.POST['username']
+	    password = request.POST['password']
+	    user = authenticate(username=username, password=password)
+	    if user is not None:
+	      if user.is_active:
+	        login(request, user)
+	return redirect('/')
+
+
+def logout_aux(request):
+	logout(request)
+	return redirect('/')
 
 

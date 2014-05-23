@@ -18,3 +18,11 @@ function codeAddress() {
     }
   });
 }
+
+$( document ).ready(function() {
+  $( "#searchTextField" ).keypress(function(event) {
+    if ( event.which == 13 ) {
+      codeAddress();
+    }
+  });
+});
