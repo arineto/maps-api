@@ -21,6 +21,10 @@ body {
 	top:70px;
 }
 
+.my_search input{
+	padding-right: 30px;
+}
+
 .user_search{
 	left:25%;
 }
