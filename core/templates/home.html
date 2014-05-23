@@ -122,56 +122,10 @@
     </div>
   </div>
 
-  <div class="my_search {% if user.is_authenticated %}user_search{% endif %}">
-      <div class="col-sm-10">
-        <input id="searchTextField" type="textbox" class="form-control" placeholder="Enter location">
-        <a href="javascript:void(0)"><span id="clearSearch" class="glyphicon glyphicon-remove"></span></a>
-      </div>
-      <button onclick="codeAddress()" class="btn btn-primary">Search</button>
-  </div>
-
   {% if user.is_authenticated %}
-    <div id="draw_maps_box" class="form-horizontal">
-      <h3>Drawing Maps</h3>
-      {% if edit %}
-        <button class="btn btn-default" onclick="end_drawing('true')">Save</button>
-        <a class="btn btn-default" href="/">Discard</a>
-      {% else %}
-        <div class="form-group">
-          <label class="col-sm-6 control-label">Color</label>
-          <div class="col-sm-4">
-            <input type="color" class="form-control" id="color">
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-12">
-            <textarea class="form-control" rows="6" id="info_text"></textarea><br>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-6">
-            <button class="btn btn-default" onclick="start_drawing()" id="start_drawing">Start Drawing</button>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-6">
-            <button class="btn btn-default" onclick="end_drawing('false')" id="end_drawing">End Drawing</button>
-          </div>
-        </div>
-      {% endif %}
-    </div>
+    {% include 'polygon_form.html' %}
   {% endif %}
 
-  <a href="javascript:void(0)"><div id="filters_control"></div></a>
-
-  <div id="filters_box">
-    <h3>Filters</h3>
-    {% for color, value in colors %}
-      <a href="/filter/{{ value }}/"><div style="background-color: {{ color }};" class="filter_color_box"></div></a>
-    {% endfor %}
-    <a href=/><div class="filter_color_box">All</div></a>
-  </div>
-
-  <div id="map-canvas" class="{% if user.is_authenticated %}authenticated{% endif %}"/>  
+  {% include 'map.html' %}
 </body>
 </html>

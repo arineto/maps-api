@@ -1,0 +1,29 @@
+<div id="draw_maps_box" class="form-horizontal">
+  <h3>Drawing Maps</h3>
+  {% if edit %}
+    <button class="btn btn-default" onclick="end_drawing('true')">Save</button>
+    <a class="btn btn-default" href="/">Discard</a>
+  {% else %}
+    <div class="form-group">
+      <label class="col-sm-6 control-label">Color</label>
+      <div class="col-sm-4">
+        <input type="color" class="form-control" id="color">
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-12">
+        <textarea class="form-control" rows="6" id="info_text"></textarea><br>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-6">
+        <button class="btn btn-default" onclick="start_drawing()" id="start_drawing">Start Drawing</button>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-6">
+        <button class="btn btn-default" onclick="end_drawing('false')" id="end_drawing">End Drawing</button>
+      </div>
+    </div>
+  {% endif %}
+</div>
