@@ -25,8 +25,4 @@ $( document ).ready(function() {
       codeAddress();
     }
   });
-
-  $( "#searchTextField" ).change(function() {
-    codeAddress();
-  });
 });
