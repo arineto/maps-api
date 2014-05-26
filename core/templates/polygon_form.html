@@ -1,29 +1,27 @@
-<div id="draw_maps_box" class="form-horizontal">
-  <h3>Drawing Maps</h3>
-  <div class="form-group">
-    <label class="col-sm-6 control-label">Color</label>
-    <div class="col-sm-4">
+<div id="draw_maps_box" class="jumbotron">
+  <h3>Draw Maps</h3>
+  <form role="form">
+    <div class="form-group">
+      <label >Color</label>
       <input type="color" class="form-control" id="color" value="{{ polygon.color }}">
     </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-12">
-      <textarea class="form-control" rows="6" id="info_text">{{ polygon.info_text }}</textarea><br>
-    </div>
-  </div>
-  {% if edit %}
-    <button class="btn btn-default" onclick="end_drawing()">Save</button>
-    <a class="btn btn-default" href="/">Discard</a>
-  {% else %}
     <div class="form-group">
-      <div class="col-sm-6">
-        <button class="btn btn-default" onclick="start_drawing()" id="start_drawing">Start Drawing</button>
-      </div>
+        <textarea class="form-control" rows="6" id="info_text">{{ polygon.info_text }}</textarea><br>
+    </div>
+    {% if edit %}
+    <div class="form-group">
+      <button class="btn btn-default" onclick="end_drawing()">Save</button>
     </div>
     <div class="form-group">
-      <div class="col-sm-6">
-        <button class="btn btn-default" onclick="end_drawing()" id="end_drawing">End Drawing</button>
-      </div>
+      <a class="btn btn-default" href="/">Discard</a>
     </div>
-  {% endif %}
+    {% else %}
+    <div class="form-group">
+      <button class="btn btn-default" onclick="start_drawing()" id="start_drawing">Start Drawing</button>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-default" onclick="end_drawing()" id="end_drawing">End Drawing</button>
+    </div>
+    {% endif %}
+  </form>
 </div>

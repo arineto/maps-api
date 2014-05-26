@@ -52,16 +52,14 @@ body {
 }
 
 .authenticated{
-	width:85% !important;
+	width:80% !important;
 }
 
 #draw_maps_box{
 	display: block;
 	float: left;
-	background-color: gray;
-	width: 15%;
+	width: 20%;
 	height:95%;
-	padding: 0 10px;
 }
 
 .filter_color_box{
