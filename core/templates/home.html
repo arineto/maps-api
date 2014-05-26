@@ -20,6 +20,12 @@
   <script type="text/javascript" src="{{ STATIC_URL }}js/map.js"></script>
 
   <script type="text/javascript">
+    $( document ).ready(function() {
+      {% if error %}
+        $(".alert").alert();
+      {% endif %}
+    });
+
     function generate_polygons(){
       // GENERATING THE STORED POLYGONS
       {% for polygon in polygons %}
@@ -79,6 +85,13 @@
   </form>
 
   {% include 'navbar.html' %}
+
+  {% if error %}
+    <div id="my_error" class="alert alert-danger fade in">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+      <p>{{ error }}</p>
+    </div>
+  {% endif %}
 
   {% if user.is_authenticated %}
     {% include 'polygon_form.html' %}

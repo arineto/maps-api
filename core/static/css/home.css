@@ -93,3 +93,7 @@ body {
   border-bottom-left-radius: 0px;
   border-left: 0px;
 }
+
+#my_error{
+	text-align: center;
+}
