@@ -16,14 +16,22 @@ def home(request, color=None):
 	if color is not None:
 		polygons = Polygon.objects.filter(color__icontains=color)
 
-	return render(request, 'home.html', {'polygons':polygons, 'colors':colors})
+	try:
+		if request.session['error']:
+			error = request.session['error']
+			del request.session['error']
+		else:
+			error = ""
+	except:
+		error = ""
+
+	return render(request, 'home.html', {'polygons':polygons, 'colors':colors, 'error':error})
 
 
 @login_required
 def save_map(request, map_id=None):
 	if request.method == 'POST':
 		if map_id:
-			print "edit"
 			instance = Polygon.objects.get(id=map_id)
 		else:
 			instance = None
@@ -31,6 +39,8 @@ def save_map(request, map_id=None):
 		form = PolygonForm(request.POST, instance=instance)
 		if form.is_valid():
 			form.save()
+		else:
+			request.session['error'] = "Fill every field"
 
 	return redirect('/')
 
@@ -62,6 +72,8 @@ def login_aux(request):
 	    if user is not None:
 	      if user.is_active:
 	        login(request, user)
+	    else:
+	    	request.session['error'] = "Invalid username/password"
 	return redirect('/')
 
 

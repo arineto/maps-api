@@ -26,7 +26,7 @@ $( document ).ready(function() {
     }
   });
 
-  $( "#clearSearch" ).click(function(event) {
-    $( "#searchTextField" ).val("");
+  $( "#searchTextField" ).change(function() {
+    codeAddress();
   });
 });
