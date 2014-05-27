@@ -18,7 +18,7 @@ class Price(models.Model):
 
 
 class Polygon(models.Model):
-	points = models.CharField(max_length=1000)
+	points = models.CharField(max_length=100000)
 	title = models.CharField(max_length=10)
 	color = models.CharField(max_length=7)
 	prices = models.ManyToManyField('Price', null=True, blank=True)
