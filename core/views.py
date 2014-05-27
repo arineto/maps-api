@@ -8,6 +8,7 @@ from core.models import *
 
 def home(request, color=None):
 	polygons = Polygon.objects.all()
+
 	colors = []
 	for polygon in polygons:
 		if not (polygon.color,polygon.color[1:]) in colors:

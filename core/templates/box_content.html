@@ -1,0 +1,21 @@
+<div class='box_content'>
+	<img class='my_logo2' src='{{ STATIC_URL }}img/nelson_logo.png'>
+	<h4 class='box_title'>Zone {{ polygon.title }}</h4>
+	{% for quarry in polygon.prices.all %}
+		<p>{{ quarry.get_quarry_display }}</p>
+		<ul>
+			<li>Tri-axel: ${{ quarry.tri_axel }}/ton</li>
+			<li>Tractor Trailer: ${{ quarry.tractor_trailer }}/ton</li>
+			<li>Stone Slinger: ${{ quarry.stone_slinger }}/ton</li>
+		</ul>
+	{% endfor %}
+	{% if user.is_authenticated %}
+		<table class="table my_table">
+			<tr>
+				<td><a href='/add_quarry/{{ polygon.id }}'>Add Quarry</a></td>
+				<td><a href='/edit_map/{{ polygon.id }}'>Edit</a></td>
+				<td><a href='/delete_map/{{ polygon.id }}'>Delete</a></td>
+			</tr>
+		</table>
+	{% endif %}
+</div>

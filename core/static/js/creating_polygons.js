@@ -1,7 +1,7 @@
 var info_window = null;
 var last_polygon = null;
 
-function new_polygon(map, path, color, title, editable, draggable){
+function new_polygon(map, path, color, content, editable, draggable){
 
   var polygonOptions = {
     path: path, 
@@ -20,7 +20,7 @@ function new_polygon(map, path, color, title, editable, draggable){
       info_window.setMap(null);
     }
     info_window = new google.maps.InfoWindow();
-    info_window.setContent(build_info_window_content(title));
+    info_window.setContent(content);
     info_window.setPosition(e.latLng);
     info_window.open(map);
 
@@ -35,9 +35,4 @@ function mark_polygon(polygon){
     }
     last_polygon = polygon;
     polygon.setOptions({fillOpacity:0.3});
-}
-
-function build_info_window_content(info_text){
-  var content = info_text;
-  return content;
 }

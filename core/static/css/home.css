@@ -60,6 +60,7 @@ body {
 	float: left;
 	width: 20%;
 	height:95%;
+	margin-bottom: 0 !important;
 }
 
 .filter_color_box{
@@ -99,6 +100,23 @@ body {
 .my_logo{
 	height: 50px;
 	margin-left: 10px;
+}
+
+.my_logo2{
+	height: 50px;
+}
+
+.box_title{
+	text-align: center;
+}
+
+.box_content{
+	max-height: 450px;
+	overflow: auto;
+}
+
+.my_table{
+	margin-bottom: 0!important;
 }
 
 .form_error{

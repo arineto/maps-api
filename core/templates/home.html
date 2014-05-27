@@ -24,7 +24,22 @@
       {% if error %}
         $(".alert").alert();
       {% endif %}
+
+      setSizes();
+
+      $(window).resize(function(){
+          setSizes();
+      });
     });
+
+    function setSizes(){
+      var height = window.innerHeight || document.body.clientHeight;
+        height -= 50;
+        $( "#map-canvas" ).css("height", height.toString());
+        {% if user.is_authenticated %}
+          $( "#draw_maps_box" ).css("height", height.toString());
+        {% endif %}
+    }
 
     function generate_polygons(){
       // GENERATING THE STORED POLYGONS
@@ -32,7 +47,7 @@
         var polygon_id = "{{ polygon.id }}";
         var polygon_points = "{{ polygon.points }}".split(", ");
         var polygon_color = "{{ polygon.color }}";
-        var polygon_title = "{{ polygon.title }}{% if user.is_authenticated %}</br><a href='/add_quarry/{{ polygon.id }}'>Add Quarry</a></br><a href='/edit_map/{{ polygon.id }}'>Edit</a></br><a href='/delete_map/{{ polygon.id }}'>Delete</a>{% endif %}";
+        var polygon_content = "<div class='box_content'> <img class='my_logo2' src='{{ STATIC_URL }}img/nelson_logo.png'> <h4 class='box_title'>Zone {{ polygon.title }}</h4> {% for quarry in polygon.prices.all %} <p>{{ quarry.get_quarry_display }}</p> <ul> <li>Tri-axel: ${{ quarry.tri_axel }}/ton</li> <li>Tractor Trailer: ${{ quarry.tractor_trailer }}/ton</li> <li>Stone Slinger: ${{ quarry.stone_slinger }}/ton</li> </ul> {% endfor %} {% if user.is_authenticated %}<table class='table my_table'> <tr> <td><a href='/add_quarry/{{ polygon.id }}'>Add Quarry</a></td> <td><a href='/edit_map/{{ polygon.id }}'>Edit</a></td> <td><a href='/delete_map/{{ polygon.id }}'>Delete</a></td></tr></table>{% endif %}</div>";
         var polygon_path = [];
 
         for(i=0; i<polygon_points.length-1; i=i+2){
@@ -45,12 +60,12 @@
         // EDITING MAPS
         {% if edit and user.is_authenticated %}
           if("{{ edit }}" == polygon_id){
-            polygon = new_polygon(map, polygon_path, polygon_color, polygon_title, true, true);
+            polygon = new_polygon(map, polygon_path, polygon_color, polygon_content, true, true);
           }else{
-            var not_edit_polygon = new_polygon(map, polygon_path, polygon_color, polygon_title, false, false);
+            var not_edit_polygon = new_polygon(map, polygon_path, polygon_color, polygon_content, false, false);
           }
         {% else %}
-          polygon = new_polygon(map, polygon_path, polygon_color, polygon_title, false, false);
+          polygon = new_polygon(map, polygon_path, polygon_color, polygon_content, false, false);
         {% endif %}
       {% endfor %}
     }
