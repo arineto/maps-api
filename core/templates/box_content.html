@@ -6,9 +6,9 @@
 	{% for quarry in polygon.prices.all %}
 		<p>{{ quarry.get_quarry_display }}</p>
 		<ul>
-			<li>Tri-axel: ${{ quarry.tri_axel }}/ton</li>
-			<li>Tractor Trailer: ${{ quarry.tractor_trailer }}/ton</li>
-			<li>Stone Slinger: ${{ quarry.stone_slinger }}/ton</li>
+			<li>Tri-axel: $ {{ quarry.tri_axel }}/ton</li>
+			<li>Tractor Trailer: $ {{ quarry.tractor_trailer }}/ton</li>
+			<li>Stone Slinger: $ {{ quarry.stone_slinger }}/ton</li>
 		</ul>
 	{% endfor %}
 	{% if user.is_authenticated %}

@@ -12,9 +12,9 @@ QUARRY_NAMES = (
 
 class Price(models.Model):
 	quarry = models.IntegerField(max_length=1, choices=QUARRY_NAMES, verbose_name='Quarry')
-	tri_axel = models.IntegerField(max_length=10, verbose_name='Tri-axel')
-	tractor_trailer = models.IntegerField(max_length=10, verbose_name='Tractor Trailer')
-	stone_slinger = models.IntegerField(max_length=10, verbose_name='Stone Slinger')
+	tri_axel = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Tri-axel', null=True, blank=True)
+	tractor_trailer = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Tractor Trailer', null=True, blank=True)
+	stone_slinger = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Stone Slinger', null=True, blank=True)
 
 
 class Polygon(models.Model):
