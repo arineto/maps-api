@@ -69,6 +69,15 @@
         {% endif %}
       {% endfor %}
     }
+
+    function mark_quarries(){
+      var quarry_window = null;
+      {% for quarry in quarries %}
+        content = "<div class='box_content'> <img class='my_logo2' src='{{ STATIC_URL }}img/nelson_logo.png'> <h4 class='box_title'>{{ quarry.name }}</h4> <p><b>Delivery Address:</b> {{ quarry.delivery_address }}</p> <p><b>Mailing Address:</b> {{ quarry.mailing_address }}</p> <p><b>Contact Information:</b></p> <ul> <li>Office: {{ quarry.office }}</li> <li>Toll: {{ quarry.toll }}</li> <li>Fax: {{ quarry.fax }}</li> <li>Sales: {{ quarry.sales }}</li> </ul> </div>";
+        create_marker("{{ quarry.name }}", "{{ quarry.latitude }}", "{{ quarry.longitude }}", content);
+      {% endfor %}
+    }
+
   </script>
 
   <script type="text/javascript">
@@ -85,6 +94,7 @@
       var autocomplete = new google.maps.places.Autocomplete(input);
       
       map = init_map(map);
+      mark_quarries();
       generate_polygons();
     }
     google.maps.event.addDomListener(window, 'load', initialize);

@@ -36,3 +36,21 @@ function mark_polygon(polygon){
     last_polygon = polygon;
     polygon.setOptions({fillOpacity:0.3});
 }
+
+function create_marker(name, latitude, longitude, content){
+  var quarry_marker = null;
+ 
+  quarry_marker = new google.maps.Marker({
+    position: new google.maps.LatLng(parseFloat(latitude), parseFloat(longitude)),
+    map: map,
+    title: name,
+    // icon: "{{ STATIC_URL }}img/nelson_logo.png"
+  });
+
+  google.maps.event.addListener(quarry_marker, 'click', function () {
+    quarry_window = new google.maps.InfoWindow({
+      content: content
+    })
+    quarry_window.open(map, quarry_marker);
+  });
+} 

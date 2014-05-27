@@ -26,7 +26,8 @@ def home(request, color=None):
 	except:
 		error = ""
 
-	return render(request, 'home.html', {'polygons':polygons, 'colors':colors, 'error':error})
+	quarries = Quarry.objects.all()
+	return render(request, 'home.html', {'polygons':polygons, 'colors':colors, 'quarries':quarries,'error':error})
 
 
 @login_required
@@ -62,7 +63,8 @@ def edit_map(request, map_id):
 
 	polygon = Polygon.objects.get(id=map_id)
 
-	return render(request, 'home.html', {'polygons':polygons, 'colors':colors, 'edit':map_id, 'polygon':polygon})
+	quarries = Quarry.objects.all()
+	return render(request, 'home.html', {'polygons':polygons, 'colors':colors, 'quarries':quarries, 'edit':map_id, 'polygon':polygon})
 
 
 @login_required
@@ -85,7 +87,8 @@ def add_quarry(request, map_id):
 	else:
 		form = QuarryForm()
 
-	return render(request, 'home.html', {'polygons':polygons, 'colors':colors, 'add_quarry':map_id, 'polygon':polygon, 'form':form})
+	quarries = Quarry.objects.all()
+	return render(request, 'home.html', {'polygons':polygons, 'colors':colors, 'quarries':quarries, 'add_quarry':map_id, 'polygon':polygon, 'form':form})
 
 
 

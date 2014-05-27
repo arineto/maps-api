@@ -23,3 +23,15 @@ class Polygon(models.Model):
 	color = models.CharField(max_length=7)
 	prices = models.ManyToManyField('Price', null=True, blank=True)
 	date = models.DateTimeField(auto_now=True)
+
+
+class Quarry(models.Model):
+	name = models.CharField(max_length=100)
+	delivery_address = models.CharField(max_length=200)
+	mailing_address = models.CharField(max_length=200)
+	office = models.CharField(max_length=15)
+	toll = models.CharField(max_length=15)
+	fax = models.CharField(max_length=15)
+	sales = models.CharField(max_length=50)
+	latitude = models.CharField(max_length=50)
+	longitude = models.CharField(max_length=50)
