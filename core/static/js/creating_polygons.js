@@ -1,7 +1,7 @@
 var info_window = null;
 var last_polygon = null;
 
-function new_polygon(map, path, color, info_text, editable, draggable){
+function new_polygon(map, path, color, title, editable, draggable){
 
   var polygonOptions = {
     path: path, 
@@ -20,7 +20,7 @@ function new_polygon(map, path, color, info_text, editable, draggable){
       info_window.setMap(null);
     }
     info_window = new google.maps.InfoWindow();
-    info_window.setContent(build_info_window_content(info_text));
+    info_window.setContent(build_info_window_content(title));
     info_window.setPosition(e.latLng);
     info_window.open(map);
 

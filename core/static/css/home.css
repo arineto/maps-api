@@ -95,3 +95,8 @@ body {
 #my_error{
 	text-align: center;
 }
+
+.my_logo{
+	height: 50px;
+	margin-left: 10px;
+}
