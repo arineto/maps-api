@@ -1,7 +1,6 @@
 var drawing = false;
 
 function start_drawing(){
-  alert(1);
   polygon = new_polygon(map, new google.maps.MVCArray(), document.getElementById("color").value, document.getElementById("title").value, true, true);
   drawing = true;
   document.getElementById("color").disabled = true;
@@ -19,10 +18,6 @@ function end_drawing(){
   // document.getElementById("info_text").disabled = false;
   // document.getElementById("end_drawing").disabled = true;
   save_map();
-}
-
-function test(){
-  alert(9);
 }
 
 function get_path_points(array){

@@ -64,6 +64,30 @@ def edit_map(request, map_id):
 	return render(request, 'home.html', {'polygons':polygons, 'colors':colors, 'edit':map_id, 'polygon':polygon})
 
 
+@login_required
+def add_quarry(request, map_id):
+	polygons = Polygon.objects.all()
+	colors = []
+	for polygon in polygons:
+		if not (polygon.color,polygon.color[1:]) in colors:
+			colors+=[(polygon.color,polygon.color[1:])]
+
+	polygon = Polygon.objects.get(id=map_id)
+
+	if request.method == 'POST':
+		form = QuarryForm(request.POST)
+		if form.is_valid():
+			quarry = form.save()
+			polygon.prices.add(quarry)
+			polygon.save()
+			return redirect('/')
+	else:
+		form = QuarryForm()
+
+	return render(request, 'home.html', {'polygons':polygons, 'colors':colors, 'add_quarry':map_id, 'polygon':polygon, 'form':form})
+
+
+
 def login_aux(request):
 	if request.method == "POST":
 	    username = request.POST['username']

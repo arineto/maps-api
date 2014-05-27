@@ -100,3 +100,7 @@ body {
 	height: 50px;
 	margin-left: 10px;
 }
+
+.form_error{
+	font-size: 14px !important;
+}

@@ -12,7 +12,7 @@
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
   
-  {% if user.is_authenticated %}
+  {% if user.is_authenticated and not add_quarry %}
     <script type="text/javascript" src="{{ STATIC_URL }}js/drawing_maps.js"></script>
   {% endif %}
   <script type="text/javascript" src="{{ STATIC_URL }}js/creating_polygons.js"></script>
@@ -32,7 +32,7 @@
         var polygon_id = "{{ polygon.id }}";
         var polygon_points = "{{ polygon.points }}".split(", ");
         var polygon_color = "{{ polygon.color }}";
-        var polygon_title = "{{ polygon.title }}{% if user.is_authenticated %}</br><a href='/edit_map/{{ polygon.id }}'>Edit</a></br><a href='/delete_map/{{ polygon.id }}'>Delete</a>{% endif %}";
+        var polygon_title = "{{ polygon.title }}{% if user.is_authenticated %}</br><a href='/add_quarry/{{ polygon.id }}'>Add Quarry</a></br><a href='/edit_map/{{ polygon.id }}'>Edit</a></br><a href='/delete_map/{{ polygon.id }}'>Delete</a>{% endif %}";
         var polygon_path = [];
 
         for(i=0; i<polygon_points.length-1; i=i+2){
@@ -61,7 +61,7 @@
     var polygon = null;
 
     function initialize() {
-      {% if not edit and user.is_authenticated %}
+      {% if not edit and user.is_authenticated and not add_quarry %}
         document.getElementById("end_drawing").disabled = true;
       {% endif %}
 
@@ -94,7 +94,7 @@
   {% endif %}
 
   {% if user.is_authenticated %}
-    {% include 'polygon_form.html' %}
+    {% include 'forms.html' %}
   {% endif %}
 
   <div id="map-canvas" class="{% if user.is_authenticated %}authenticated{% endif %}"/>  
